@@ -1,17 +1,25 @@
 // main.js
 
-var lists = {};
+// var lists = {};
 
 // connecting the ng-app module in index.html to the module here, and
 // assigning it to a variable named app.
 
 angular.module("todo.controllers", [])
 
+.service('ListService', function() {
+
+  this.list = {};
+
+  this.getList = function() { return this.list; };
+  this.saveList = function(list) { this.list = list; };
+
+})
 
 // the controller for the list of todo lists
-.controller("listOfTodos", ["$scope", "$location", "$routeParams", function($scope, $location, $routeParams) {
+.controller("listOfTodos", ["$scope", "$location", "$routeParams", "ListService", function($scope, $location, $routeParams, ListService) {
   document.getElementsByTagName("input")[0].focus();
-  $scope.lists = lists;
+  $scope.lists = ListService.getList();
 
   $scope.createList = function() {
     if (!!$scope.viewTitle !== false) {
@@ -20,12 +28,12 @@ angular.module("todo.controllers", [])
     }
     console.log($scope.lists);
     document.getElementById("todoTitle").focus();
-    lists = $scope.lists;
+    ListService.saveList($scope.lists);
   };
 
   $scope.deleteList = function(title) {
     delete $scope.lists[title];
-    lists = $scope.lists;
+    ListService.saveList($scope.lists);
   };
 
   $scope.gotoList = function(title) {
@@ -53,7 +61,7 @@ angular.module("todo.controllers", [])
     console.log("index: " + $scope.lists[$scope.listTitle].indexOf(item));
     console.log("array: " + $scope.lists[$scope.listTitle]);
     currentList.splice(currentList.indexOf(item), 1);
-    lists = $scope.lists;
+    ListService.saveList($scope.lists);
   }
 
 }]);
