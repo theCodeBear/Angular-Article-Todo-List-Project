@@ -1,0 +1,16 @@
+<!-- Template for show all the lists -->
+
+<div class="form">
+  <input type="text" id="todoTitle" class="inputs col-md-9" ng-model="viewTitle" placeholder="Todo List Title">
+  <button type="button" class="inputButton btn btn-primary" ng-click="createList()"> + </button>
+</div>
+
+<br><br>
+
+<ul class="lists">
+  <li ng-repeat="(key, value) in lists" >
+    <span class="item clickable" ng-click="gotoList(key)">{{ key }} ({{ value.length }})</span>
+    <button type="button" id="deleteList" ng-click="deleteList(key)">x</button>
+  </li>
+</ul>
+
