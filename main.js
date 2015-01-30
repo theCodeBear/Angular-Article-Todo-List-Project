@@ -1,7 +1,5 @@
 // main.js
 
-// var lists = {};
-
 // connecting the ng-app module in index.html to the module here, and
 // assigning it to a variable named app.
 
