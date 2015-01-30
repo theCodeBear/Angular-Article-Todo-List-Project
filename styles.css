@@ -11,6 +11,11 @@ a {
 button {
   outline: none;
   box-shadow: none;
+  background-color: green;
+}
+
+li button {
+  background-color: red;
 }
 
 .form * {
