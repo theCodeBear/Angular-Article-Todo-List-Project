@@ -8,7 +8,7 @@ angular.module('todo', ['ngRoute'])
     }).
     when('/list/:title', {
       templateUrl: '/templates/list.html',
-      controller: 'listOfTodos'
+      controller: 'eachTodo'
     }).
     otherwise({
       redirectTo: '/'

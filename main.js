@@ -5,26 +5,23 @@
 
 angular.module("todo")
 
+// creating a service to share data among controllers
 .service('ListService', function() {
-
   this.list = {};
-
   this.getList = function() { return this.list; };
   this.saveList = function(list) { this.list = list; };
-
 })
 
-// the controller for the list of todo lists
+// the controller for the list of todo lists (main.html)
 .controller("listOfTodos", ["$scope", "$location", "$routeParams", "ListService", function($scope, $location, $routeParams, ListService) {
   document.getElementsByTagName("input")[0].focus();
   $scope.lists = ListService.getList();
 
   $scope.createList = function() {
     if (!!$scope.viewTitle !== false) {
-      $scope.lists[$scope.viewTitle] = [];
-      $scope.viewTitle = "";
+        $scope.lists[$scope.viewTitle] = [];
+        $scope.viewTitle = "";
     }
-    console.log($scope.lists);
     document.getElementById("todoTitle").focus();
     ListService.saveList($scope.lists);
   };
@@ -38,26 +35,28 @@ angular.module("todo")
     $location.path("/list/"+title);
   };
 
+}])
 
+// controller for list.html template
+.controller("eachTodo", ['$scope', '$location', '$routeParams', 'ListService', function($scope, $location, $routeParams, ListService) {
 
-  // stuff for list.html template
-
+  document.getElementsByTagName("input")[0].focus();
   $scope.listTitle = $routeParams.title;
-
-  console.log($scope.lists);
+  $scope.lists = ListService.getList();
 
   $scope.createItem = function() {
-    $scope.lists[$scope.listTitle].push($scope.item);
-    console.log($scope.lists);
+    var alreadyExists = false;
+    for (i in $scope.lists[$scope.listTitle])
+      if ($scope.lists[$scope.listTitle][i] === $scope.item)
+        alreadyExists = true;
+    if (!alreadyExists)
+      $scope.lists[$scope.listTitle].push($scope.item);
     $scope.item = "";
     document.getElementById("todoItem").focus();
   }
 
   $scope.deleteItem = function(item) {
     var currentList = $scope.lists[$scope.listTitle];
-    console.log("item: " + item + ", type: " + typeof(item));
-    console.log("index: " + $scope.lists[$scope.listTitle].indexOf(item));
-    console.log("array: " + $scope.lists[$scope.listTitle]);
     currentList.splice(currentList.indexOf(item), 1);
     ListService.saveList($scope.lists);
   }
