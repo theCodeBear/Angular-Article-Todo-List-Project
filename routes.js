@@ -1,4 +1,4 @@
-angular.module('todo', ['ngRoute', 'todo.controllers'])
+angular.module('todo', ['ngRoute'])
 
 .config(['$routeProvider',
   function($routeProvider) {
