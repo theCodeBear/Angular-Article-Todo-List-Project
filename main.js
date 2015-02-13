@@ -19,8 +19,8 @@ angular.module("todo")
 
   $scope.createList = function() {
     if (!!$scope.viewTitle !== false) {
-        $scope.lists[$scope.viewTitle] = [];
-        $scope.viewTitle = "";
+      $scope.lists[$scope.viewTitle] = [];
+      $scope.viewTitle = "";
     }
     document.getElementById("todoTitle").focus();
     ListService.saveList($scope.lists);
