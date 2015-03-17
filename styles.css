@@ -75,3 +75,11 @@ li button {
   height: inherit;
   font-size: 1.5em;
 }
+
+.backButton {
+  color: white;
+}
+
+.backButton:hover {
+  cursor: pointer;
+}

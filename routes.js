@@ -1,17 +1,21 @@
-angular.module('todo', ['ngRoute'])
+angular.module('todo', ['ui.router'])
 
-.config(['$routeProvider',
-  function($routeProvider) {
-    $routeProvider.when('/', {
-      templateUrl: 'templates/main.html',
-      controller: 'listOfTodos'
-    }).
-    when('/list/:title', {
-      templateUrl: 'templates/list.html',
-      controller: 'eachTodo'
-    }).
-    otherwise({
-      redirectTo: '/'
-    });
-  }
-]);
+.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
+
+  $urlRouterProvider.otherwise('/');
+
+  $stateProvider
+
+  .state('home', {
+    url: '/',
+    templateUrl: 'home/home.html',
+    controller: 'listOfTodos'
+  })
+
+  .state('list', {
+    url: '/list/:title',
+    templateUrl: 'list/list.html',
+    controller: 'eachTodo'
+  });
+
+}]);
